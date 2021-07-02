@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>PHINMA UPang Alumni Tracker | ADMIN</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="css/admin.css">
+</head>
+<body>
+  <div class="container">
+    <nav>Navbar</nav>
+    <main>Main</main>
+    <div id="sidebar">Sidebar</div>
+    <div id="content1">Content1</div>
+    <div id="content2">Content2</div>
+    <div id="content3">Content3</div>
+    <footer>Footer</footer>
+  </div>
+</body>
+</html>
+
+<div class="row" id="info-row" style="margin-bottom: ;">
+  <div class="col-sm-2 btn-success" id="info1" >
+    <table class="d_data">
+      <tr>
+        <td><i class="fas fa-briefcase" style="font-size: 3vw;"></i></td>
+        <th><h2>
+          <?php
+
+          $data=mysqli_fetch_assoc($num_inst);
+            echo '<p class="ilogo">'.$data['total'].'</p>';
+
+          ?>
+        </h2></th>
+      </tr>
+      <tr><td><p class="iname">Number of Instructor</p></td></tr>
+    </table>
+      
+    
+  </div>
+  <div class="col-sm-3 btn-primary" id="info1"  >
+    <table  class="d_data">
+      <tr>
+        <td><span class="glyphicon glyphicon-calendar ilogo" style="font-size: 3vw;"></span></td>
+        <th><h2>
+          <?php
+
+          $data=mysqli_fetch_assoc($num_event);
+            echo '<p class="ilogo">'.$data['total'].'</p>';
+
+          ?>
+        </h2></th>
+      </tr>
+      <tr><td ><p class="iname">Number of Events</p></td></tr>
+    </table>
+  </div>
+  <div class="col-sm-3 btn-danger" id="info1" >
+    <table  class="d_data">
+      <tr>
+        <td><i class="fas fa-hourglass-start" style="font-size: 3vw;"></i></td>
+        <th><h2>
+          <?php
+          $query=mysqli_query($conn,"SELECT * FROM event");
+          while ($data=mysqli_fetch_assoc($query)) {
+            $total += $data['event_time_total'];
+          }
+          echo $total;
+            
+
+          ?></h2></th>
+      </tr>
+      <tr><td><p class="iname">Total Event Hours</p></td></tr>
+    </table>
+  </div>
+  <div class="col-sm-3 btn-warning" id="info1" >
+    <table  class="d_data">
+      <tr>
+        <td><i class="fas fa-users ilogo" style="font-size: 3vw;"></i></td>
+        <th><h2><?php
+
+          $data=mysqli_fetch_assoc($num_students);
+            echo '<p class="ilogo">'.$data['total'].'</p>';
+
+          ?></h2></th>
+      </tr>
+      <tr><td><p class="iname">Number of Students</p></td></tr>
+    </table>
+  </div>
+</div>
+<!-- $num_event=mysqli_query($conn,"SELECT count(*) as total from event"); -->
