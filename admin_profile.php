@@ -3,7 +3,7 @@ session_start();
 
 	include("connection.php");
 	include("functions.php");
-
+	include("timer.php");
 	$admin_data = check_login($con);
 
 ?>
@@ -48,29 +48,15 @@ session_start();
 		$fname=$_POST['fname'];
 		$mname=$_POST['mname'];
 		$lname=$_POST['lname'];
-		$bdate=$_POST['bdate'];
-		$bplace=$_POST['bplace'];
-		$gender=$_POST['gender'];
-		$home_address=$_POST['home_address'];
-		$current_address=$_POST['current_address'];
-		$civil_status=$_POST['civil_status'];
-		$mobile=$_POST['mobile'];
-		$email=$_POST['email'];
+		
 
 		$query ="UPDATE admin SET admin_id = '$admin_id',
 		username = '$username',
 		password = '$password',
 		firstname='$fname',
 		middlename='$mname',
-		lastname='$lname',
-		birthdate='$bdate',
-		birthplace='$bplace',
-		gender='$gender',
-		home_address='$home_address', 
-		current_address='$current_address', 
-		civil_status='$civil_status', 
-		mobile_number='$mobile', 
-		email='$email',
+		lastname='$lname'
+		
 		
 		WHERE id='$id' ";
 
@@ -109,7 +95,7 @@ session_start();
 		<a href="announcements.php"><i class="fas fa-table"></i><span>Announcements</span></a>
 		<a href="events.php"><i class="fas fa-th"></i><span>Events</span></a>
 		<a href="job.php"><i class="fas fa-circle"></i><span>Job Offers</span></a>
-		<a href="editpages.php"><i class="fas fa-sliders-h"></i><span>Edit Pages</span></a>
+		<a href="company.php"><i class="fas fa-sliders-h"></i><span>Company Page</span></a>
 		<a href="add_admin.php"><i class="fas fa-user-shield"></i><span>Admin</span></a>
 		<a href="admin_profile.php"  class="active"><i class="fas fa-user-alt"></i><span>Admin Profile</span></a>
 	</div>
@@ -164,23 +150,13 @@ session_start();
 											<label for="username">Username :</label>
 											
 										</div>
-										<div class="form-group">
-											<label for="email">Email :</label>
-											
-										</div>
+										
 										<div class="form-group">
 											<label for="password">Password :</label>
 											
 										</div>
 
-										<div class="form-group">
-											<label for="home_address">Home Address :</label>
-											
-										</div>
-										<div class="form-group">
-											<label for="current_address">Current Address :</label>
-											
-										</div>
+										
 										
 										
 										
@@ -217,22 +193,12 @@ session_start();
 										<div class="form-group">
 											<h6><?php echo $row['username'];?></h6>
 										</div>
-										
-										<div class="form-group">
-											<h6><?php echo $row['email'];?></h6>
-										</div>
-										
+									
 										<div class="form-group">
 											<h6><?php echo $row['password'];?></h6>
 										</div>
 										
-										<div class="form-group">	
-											<h6><?php echo $row['home_address'];?></h6>
-										</div>
-										
-										<div class="form-group">
-											<h6><?php echo $row['current_address'];?></h6>
-										</div>
+							
 
 										<!-- <div class="form-group">
 											<input type="submit" name="update" value="Save Changes" class="btn btn-primary form-control">

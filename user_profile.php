@@ -306,9 +306,7 @@ button{
 			      <li class="nav-item">
 			        <a class="nav-link" href="home.php">Home</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Alumni</a>
-			      </li>
+			      
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          News
@@ -499,7 +497,7 @@ button{
 												<!-- About Me -->
 													<div class="form-group">
 														<label for="about_me">About Me</label>
-														<textarea cols="22" rows="5" name="about_me" class="form-control" value="<?php echo $row['about_me'];?>"></textarea>
+														<textarea cols="22" rows="5" name="about_me" class="form-control"><?php echo $row['about_me'];?></textarea>
 													</div>
 
 													<!-- Skills -->
@@ -550,65 +548,65 @@ button{
 										<br>
 										<h5>Work 1</h5>
 										<div class="form-group">
-												<label for="wcompany1">Work Company</label>
+												<label for="wcompany1">Company</label>
 												<input type="text" name="wcompany1" class="form-control" value="<?php echo $row['workcompany1'];?>">
 											</div>
 											<div class="form-group">
-												<label for="worktitle1">Work Title</label>
+												<label for="worktitle1">Title</label>
 												<input type="text" name="worktitle1" class="form-control" value="<?php echo $row['workexptitle1'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workpos1">Work Position</label>
+												<label for="workpos1">Position</label>
 												<input type="text" name="workpos1" class="form-control" value="<?php echo $row['workexppos1'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workdate1">Work Date</label>
+												<label for="workdate1">Date</label>
 												<input type="text" name="workdate1" placeholder="Year up until" class="form-control" value="<?php echo $row['workexpdate1'];?>">
 											</div>
 											<div class="form-group">
-												<label for="worktitle1">Work Definition</label>
+												<label for="worktitle1">Description</label>
 												<input type="text" name="workdef1" class="form-control" value="<?php echo $row['workexpdef1'];?>">
 											</div>
 											<h5>Work 2</h5>
 											<div class="form-group">
-												<label for="wcompany2">Work Company</label>
+												<label for="wcompany2">Company</label>
 												<input type="text" name="wcompany2" class="form-control" value="<?php echo $row['workcompany2'];?>">
 											</div>
 											<div class="form-group">
-												<label for="worktitle2">Work Title</label>
+												<label for="worktitle2">Title</label>
 												<input type="text" name="worktitle2" class="form-control" value="<?php echo $row['workexptitle2'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workpos2">Work Position</label>
+												<label for="workpos2">Position</label>
 												<input type="text" name="workpos2" class="form-control" value="<?php echo $row['workexppos2'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workdate2">Work Date</label>
+												<label for="workdate2">Date</label>
 												<input type="text" name="workdate2" placeholder="Year up until" class="form-control" value="<?php echo $row['workexpdate2'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workdef2">Work Definition</label>
+												<label for="workdef2">Description</label>
 												<input type="text" name="workdef2" class="form-control" value="<?php echo $row['workexpdef2'];?>">
 											</div>
 											<h5>Work 3</h5>
 											<div class="form-group">
-												<label for="wcompany3">Work Company</label>
+												<label for="wcompany3">Company</label>
 												<input type="text" name="wcompany3" class="form-control" value="<?php echo $row['workcompany3'];?>">
 											</div>
 											<div class="form-group">
-												<label for="worktitle3">Work Title</label>
+												<label for="worktitle3">Title</label>
 												<input type="text" name="worktitle3" class="form-control" value="<?php echo $row['workexptitle3'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workpos3">Work Position</label>
+												<label for="workpos3">Position</label>
 												<input type="text" name="workpos3" class="form-control" value="<?php echo $row['workexppos3'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workdate3">Work Date</label>
+												<label for="workdate3">Date</label>
 												<input type="text" name="workdate3" class="form-control" placeholder="Year up until" value="<?php echo $row['workexpdate3'];?>">
 											</div>
 											<div class="form-group">
-												<label for="workdef3">Work Definition</label>
+												<label for="workdef3">Description</label>
 												<input type="text" name="workdef3" class="form-control" value="<?php echo $row['workexpdef3'];?>">
 											</div>
 									</div>
@@ -618,11 +616,11 @@ button{
 											<h6 for="eduname1"><strong>TERTIARY EDUCATION</strong></h6>
 											<div class="form-group">
 												
-												<label for="eduname1">School Name</label>
+												<label for="eduname1">School</label>
 												<input type="text" name="eduname1" class="form-control" value="<?php echo $row['sname'];?>" readonly>
 											</div>
 											<div class="form-group">
-												<label for="eduplace1">School Address</label>
+												<label for="eduplace1">Address</label>
 												<input type="text" name="eduplace1" class="form-control" value="<?php echo $row['saddress'];?>" readonly>
 											</div>
 											<div class="form-group">
@@ -638,11 +636,11 @@ button{
 											<h6><strong>SECONDARY EDUCATION</strong></h6>
 											<h6><strong>Senior Highschool</strong></h6>
 											<div class="form-group">
-												<label for="eduname2">School Name</label>
+												<label for="eduname2">School</label>
 												<input type="text" name="eduname2" class="form-control" value="<?php echo $row['educname2'];?>">
 											</div>
 											<div class="form-group">
-												<label for="eduplace2">School Address</label>
+												<label for="eduplace2">Address</label>
 												<input type="text" name="eduplace2" class="form-control" value="<?php echo $row['educplace2'];?>">
 											</div>
 											<div class="form-group">
@@ -657,11 +655,11 @@ button{
 											<br>
 											<h6><strong>Junior Highschool</strong></h6>
 											<div class="form-group">
-												<label for="eduname3">School Name</label>
+												<label for="eduname3">School</label>
 												<input type="text" name="eduname3" class="form-control" value="<?php echo $row['educname3'];?>">
 											</div>
 											<div class="form-group">
-												<label for="eduplace3">School Address</label>
+												<label for="eduplace3">Address</label>
 												<input type="text" name="eduplace3" class="form-control" value="<?php echo $row['educplace3'];?>">
 											</div>
 											<div class="form-group">
@@ -672,11 +670,11 @@ button{
 											<br>
 											<h6><strong>PRIMARY EDUCATION</strong></h6>
 											<div class="form-group">
-												<label for="eduname4">School Name</label>
+												<label for="eduname4">School</label>
 												<input type="text" name="eduname4" class="form-control" value="<?php echo $row['educname4'];?>">
 											</div>
 											<div class="form-group">
-												<label for="eduplace4">School Address</label>
+												<label for="eduplace4">Address</label>
 												<input type="text" name="eduplace4" class="form-control" value="<?php echo $row['educplace4'];?>">
 											</div>
 											<div class="form-group">
@@ -734,7 +732,7 @@ button{
 								</div>
 								<div class="form-group">
 									<label for="password">Password: </label>
-									<input type="text" name="password" class="form-control" value="<?php echo $row['password'];?>">
+									<input type="password" name="password" class="form-control" value="<?php echo $row['password'];?>">
 								</div>
 							<div class="form-group" style="float: right;">
 									<input type="submit" name="edit" value="Update" class="btn btn-primary form-control">

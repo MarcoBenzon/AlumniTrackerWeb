@@ -164,7 +164,7 @@ $errors = array();
     //if user click continue button in forgot password form
     if(isset($_POST['check-email'])){
         $email = mysqli_real_escape_string($openconnection, $_POST['email']);
-        $check_email = "SELECT * FROM admin WHERE email='$email'";
+        $check_email = "SELECT * FROM admin WHERE email ='$email'";
         $run_sql = mysqli_query($openconnection, $check_email);
         if(mysqli_num_rows($run_sql) > 0){
             $code = rand(999999, 111111);
@@ -180,15 +180,15 @@ $errors = array();
                     $mail->isSMTP();                                            //Send using SMTP
                     $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                    $mail->Username   = 'maso.benzon@up.phinma.edu.ph';                     //SMTP username
-                    $mail->Password   = 'G_arena05';                               //SMTP password
+                    $mail->Username   = 'riuseigitempest@gmail.com';                     //SMTP username  email ng gumagamit ng phpmailer (Account ko yan. pero pwede mo makita sa mysql yung code)
+                    $mail->Password   = 'Wolfgang234';                               //SMTP password password ng email ko
                     $mail->SMTPSecure = 'ssl';         //Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                     $mail->Port       = 465;                                    //TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
-
+                    //Eto yung format ng email.
                     //Recipients
-                    $mail->setFrom('maso.benzon@up.phinma.edu.ph', 'Alumni Tracker');
+                    $mail->setFrom('riuseigitempest@gmail.com', 'Alumni Tracker');
                     $mail->addAddress($email);     //Add a recipient
-                    $mail->addReplyTo('maso.benzon@up.phinma.edu.ph', 'No reply');
+                    $mail->addReplyTo('riuseigitempest@gmail.com', 'No reply');
 
                     //Content
                     $mail->isHTML(true);                                  //Set email format to HTML
@@ -198,7 +198,7 @@ $errors = array();
                       $info = "We've sent a passwrod reset otp to your email - $email";
                                  $_SESSION['info'] = $info;
                                      $_SESSION['email'] = $email;
-                                     header('location: areset-code.php');
+                                     header('location: reset-code.php');
                                      exit();
                 }
                 catch (Exception $e) {
@@ -248,8 +248,8 @@ $errors = array();
         }else{
             $code = 0;
             $email = $_SESSION['email']; //getting this email using session
-            // $encpass = password_hash($password, PASSWORD_BCRYPT);
-            $update_pass = "UPDATE admin SET code = $code, password = '$password' WHERE email = '$email'";
+            $encpass = md5($password);
+            $update_pass = "UPDATE admin SET code = $code, password = '$encpass' WHERE email = '$email'";
             $run_query = mysqli_query($openconnection, $update_pass);
             if($run_query){
                 $info = "Your password changed. Now you can login with your new password.";

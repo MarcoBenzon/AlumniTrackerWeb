@@ -1,12 +1,3 @@
-<?php
-
-$dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "alumnitracker";
-
-if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
-{
-
-	die("failed to connect!");
-}
+<?php 
+$con = mysqli_connect('localhost', 'root', '', 'alumnitracker');
+?>

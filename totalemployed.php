@@ -22,24 +22,19 @@ session_start();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="images/alumni_logo.png">
   <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <link rel="stylesheet" type="text/css" href="css/dashboard.css">
-  <link rel="stylesheet" type="text/css" href="stylecv.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script> 
-
+<link rel="stylesheet" type="text/css" href="print.css" media="print">
   
 
 <!-- DataTables CSS library -->
-<link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/>
+<!-- <link rel="stylesheet" type="text/css" href="DataTables/datatables.min.css"/> -->
 
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ -->
 <!-- DataTables JS library -->
-<script type="text/javascript" src="DataTables/datatables.min.js"></script>
+<!-- <script type="text/javascript" src="DataTables/datatables.min.js"></script> -->
 
 
 <!-- <script type="text/javascript">
@@ -57,54 +52,47 @@ session_start();
 </head>
 <body>
     
-    <!-- Header Area Start -->
-    <header>
-        
-    </header>
-    <!-- Header Area End -->
-
-    <!-- Content Area Start -->
-    <div class="contents">
-        <content>
-
-        <div class="container">
-            <h2 style="text-align: center; margin-top: 10%; font-family: sans-serif;"><b>UNEMPLOYED ALUMNI</b></h2>
-            <table id="alumniList" class="display" style="width: 100%; margin-top: 100px">
-                <thead>
-                    <tr>
-                        <th width="18%">Student Number</th>
-                        <th width="30%">Student Name</th>
-                        <th width="10%">Batch</th>
-                        <th width="25%">Course Graduated</th>
-                        <th width="10%">Status</th>
-                    </tr>
-                </thead>
-                
-            </table>
-            <?php
-                $view_query=mysqli_query($openconnection,"SELECT * FROM alumni WHERE status = 'Employed'  ORDER BY batch_grad DESC");
-                    while ($row=mysqli_fetch_assoc($view_query)) {
-                ?>
-                <hr>
-                <table>
-                    <tr class="announce">
-                        <td width="18%"><?php echo $row['studnum'];?></td>
-                        <td width="30%" ><?php echo $row['lastname'],", ",$row['firstname']," ",$row['middlename'];?></td>
-                        <td width="10%"><?php echo $row['batch_grad'];?></td>
-                        <td width="25%"><?php echo $row['course'];?></td>
-                        <td width="10%"><?php echo $row['status'];?></td>
-                    </tr>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2 class="text-center" style="margin-top: 100px;">Employed Alumni</h2>
+                <br>
+                <br>
+                <br>
+                <table class="table table-borderless">
+                    <thead>
+                        <tr>
+                            <th>Student Number</th>
+                            <th>Student Name</th>
+                            <th>Batch</th>
+                            <th>Course Graduated</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $query = "SELECT * FROM alumni WHERE status = 'Employed' ORDER BY batch_grad DESC";
+                        $res = mysqli_query($openconnection, $query);
+                        while ($row = mysqli_fetch_assoc($res)) 
+                        {
+                        ?>
+                        <tr>
+                            <td><?php echo $row['studnum'];?></td>
+                            <td><?php echo $row['lastname'],", ",$row['firstname']," ",$row['middlename'];?></td>
+                            <td><?php echo $row['batch_grad'];?></td>
+                            <td><?php echo $row['course'];?></td>
+                            <td><?php echo $row['status'];?></td>
+                        <?php }?>
+                        </tr>
+                    </tbody>
                 </table>
-                <?php }?>
-        </div>
+                <div class="text-center">
+                    <input type="button" value="Print" onclick="window.print();" class="btn btn-primary" id="print-btn">
+                    
+                </div>
 
-        </content>
-    </div>
-
-<div>
-<!-- <button id="printbutt" onclick="printContent('print');" class="btn btn-info" style="border-radius: 0; outline: none;"><i class="fa fa-print" aria-hidden="true"></i> Print</button> -->
-
-    <?php $referer = filter_var($_SERVER['HTTP_REFERER'], FILTER_VALIDATE_URL);
+                <center>
+                    <?php $referer = filter_var($_SERVER['HTTP_REFERER'], FILTER_VALIDATE_URL);
     
     if (!empty($referer)) {
         
@@ -116,19 +104,10 @@ session_start();
         
     }
 ?>
-</div>
-
-<script>
-    //Print button in profile
-function printContent(el){
-  var restorepage = document.body.innerHTML;
-  var printcontent = document.getElementById(el).innerHTML;
-
-  document.body.innerHTML = printcontent;
-  window.print();
-  document.body.innerHTML = restorepage;
-}
-</script>
+</center>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>

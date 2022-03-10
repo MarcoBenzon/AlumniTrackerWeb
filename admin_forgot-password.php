@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Forgot Password</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/user-otp.css"> -->
+     <link rel="stylesheet" href="css/login.css"> 
     <style type="text/css">
     
 
@@ -38,6 +38,7 @@
                     <div class="form-group">
                         <input class="form-control button" type="submit" name="check-email" value="Continue">
                     </div>
+                    <center><br><a href="login.php" class="pass" style="text-decoration: none; color: #032708;">Back to Login</a></center>
                 </form>
             </div>
         </div>

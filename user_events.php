@@ -1,4 +1,31 @@
-<!DOCTYPE html>
+<?php 
+	session_start();
+	date_default_timezone_set('Asia/Manila');
+	//include 'user_comment.php';
+	include 'db_connect.php';
+	include 'user_functions.php';
+	// include 'functions.php';
+
+	$admin_data = check_login($openconnection);
+
+?>
+<?php
+
+/*function setComments($openconnection) {*/
+	if (isset($_POST['commentSubmit'])) {
+		$uid = $_POST['uid'];
+		$date = $_POST['date'];
+		$message = $_POST['message'];
+		$post_id = $_POST['post_id'];
+		$sql = "INSERT INTO tbl_comments (comment_name, date, comments, post_id) 
+		VALUES ('$uid', '$date', '$message', '$post_id')";
+		/*$sql1 = "SELECT * FROM tbl_comments WHERE post_id = '$post_id'";*/
+		$result = $openconnection->query($sql);
+	}
+	
+/*}
+*/
+?><!DOCTYPE html>
 <html>
 
 <head>
@@ -26,9 +53,7 @@
 						<li class="nav-item">
 							<a class="nav-link" href="home.php">Home</a>
 						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">Alumni</a>
-						</li>
+						
 						<li class="nav-item dropdown active">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								News
@@ -45,7 +70,7 @@
 							<a class="nav-link" href="user_aboutus.php">About</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Contact</a>
+							<a class="nav-link" href="user_contactus.php">Contact</a>
 						</li>
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -78,13 +103,63 @@
 				<?php
 				$view_query = mysqli_query($openconnection, "SELECT * FROM events");
 				while ($row = mysqli_fetch_assoc($view_query)) {
+					$post_id = $row['id'];
 				?>
 			<div class="space user-profile mt-4" style="padding: 20px; border-radius: 15px;  box-shadow: 0px 5px 10px 2px #888888">
+				<h2 hidden><?php echo $post_id;?></h2>
 				 <h4 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><?php echo $row['EventTitle'];?></h4>
 				 
 				  &nbsp;<br>
-				<h5 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><?php echo $row['EventDescription'];?></h5>
+				<h5 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><?php echo nl2br($row['EventDescription']);?></h5>
 				 <img style="width: 100%; height: auto; margin-top: 15px;" src="<?php echo $row['FileImage']?>">
+
+				 <div class="container">
+				 	<div class="row">
+
+				 		<div class="col-lg-12"><br>
+
+								  <div class="form-group">
+								    <label><strong style="color: #26314a;">Add Comment/Questions</strong></label>
+								    <?php 
+								    echo "<form method='POST'>
+								    <input type='hidden' name='post_id' value='$post_id'>
+								    <input type='hidden' name='uid' value='".$admin_data['firstname']." ".$admin_data['lastname']."'>
+								    <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
+								    <textarea name='message' class='form-control'  rows='3' placeholder='Add your comment here' style='resize: none;''></textarea>
+								    
+
+								    <button type= 'submit' name = 'commentSubmit' class='btn mt-2' style='float: right; background-color: #244b48; color: white;'>Post Comment 
+								    	<i class='fa fa-paper-plane' aria-hidden='true'></i></button>
+								    	</form>";
+								    	?>
+
+								  </div><br><hr>
+
+								 <h4>Comments</h4>
+								 <?php
+
+                                      $sql=mysqli_query($openconnection,"SELECT * FROM tbl_comments WHERE post_id='$post_id'");
+                                      while($row=mysqli_fetch_assoc($sql))
+                                      {          
+                                      $date = $row['date'];
+                                      $comment_name = $row['comment_name'];
+                                      $message = $row['comments'];
+                                   ?>
+								  
+								  			  <h2 hidden><?php echo $date; ?></h2>
+											  <div class="container-comment">
+											   <img class="img-comment" style="width: 20%; height: auto; margin-top: 15px;" src="<?php echo $row['FileImage']?>">
+											  <div class="text-container-comment"><strong><?php echo $row['comment_name']?></strong> / <small><?php echo $row['date']?></small></div><br>
+											  <h2><?php echo $message; ?></h2>
+											</div>
+
+								  <?php }?>
+
+				 		</div>
+				 		
+				 	</div>
+				 	
+				 </div>
 				 
 				</div>
 

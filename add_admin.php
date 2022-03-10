@@ -6,7 +6,7 @@ session_start();
 	include("connection.php");
 	include ('admin_server.php');
 	include("functions.php");
-
+	include("timer.php");
 	$admin_data = check_login($con);
 
 ?>
@@ -94,7 +94,7 @@ session_start();
 		<a href="announcements.php"><i class="fas fa-table"></i><span>Announcements</span></a>
 		<a href="events.php"><i class="fas fa-th"></i><span>Events</span></a>
 		<a href="job.php"><i class="fas fa-circle"></i><span>Job Offers</span></a>
-		<a href="editpages.php"><i class="fas fa-sliders-h"></i><span>Edit Pages</span></a>
+		<a href="company.php"><i class="fas fa-sliders-h"></i><span>Company Page</span></a>
 		<a href="add_admin.php"  class="active"><i class="fas fa-user-shield"></i><span>Admin</span></a>
 		<a href="admin_profile.php"><i class="fas fa-user-alt"></i><span>Admin Profile</span></a>
 	</div>
@@ -124,8 +124,8 @@ session_start();
 				<table>
 					<tr class="admin">
 						<td width="140px"><?php echo $row['admin_id'];?></td>
-						<td width="120px"><?php echo $row['username'];?></td>
-						<td width="220px"><?php echo $row['password'];?></td>
+						<td width="260px"><?php echo $row['username'];?></td>
+						<td width="200px"><?php echo $row['password'];?></td>
 						<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#view<?php echo $row['id'];?>">View</button></td>
 						<td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#edit<?php echo $row['id'];?>">Edit</button></td>
 					</tr>
@@ -195,50 +195,7 @@ session_start();
 							<label for="lname">Lastname <span>*</span></label>
 							<input type="text" name="lname" class="form-control" >
 						</div>
-						<div class="form-group">
-							<label for="bdate">Birthdate <span>*</span></label>
-							<input type="date" name="bdate" class="form-control" >
-						</div>
-						<div class="form-group">
-							<label for="bplace">Birthplace <span>*</span></label>
-							<input type="text" name="bplace" class="form-control" >
-						</div>
-						<div class="form-group">
-							<label>Gender <span>*</span></label>
-							<select name="gender" class="form-control" >
-								<option value="" disabled selected>-- select gender --</option>
-								<option value="Male">Male</option>
-								<option value="Female">Female</option>
-							</select>
-						</div>
-
-						<div class="form-group">
-							<label for="bplace">Current address <span>*</span></label>
-							<input type="text" name="current_address" class="form-control" >
-						</div>
-
-						<div class="form-group">
-							<label>Civil Status</label>
-							<select name="civil_status" class="form-control">
-								<option value="" disabled selected>-- select civil status --</option>
-								<option value="Single">Single</option>
-								<option value="Married">Married</option>
-								<option value="Divorced">Divorced</option>
-								<option value="Widdowed">Widdowed</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label for="home_address">Home Address <span>*</span></label>
-							<input type="text" name="home_address" class="form-control" >
-						</div>
-						<div class="form-group">
-							<label for="mobile">Mobile Number <span>*</span></label>
-							<input type="number" name="mobile" class="form-control" >
-						</div>
-						<div class="form-group">
-							<label for="email">Email <span>*</span></label>
-							<input type="email" name="email" class="form-control" >
-						</div>
+						
 						<div class="form-group">
 							<input type="submit" name="send" value="Add to Admin" class="btn btn-primary form-control">
 						</div>

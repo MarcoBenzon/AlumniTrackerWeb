@@ -32,9 +32,7 @@ session_start();
 			      <li class="nav-item active">
 			        <a class="nav-link" href="home.php">Home</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Alumni</a>
-			      </li>
+			      
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          News
@@ -51,7 +49,7 @@ session_start();
 			        <a class="nav-link" href="user_aboutus.php">About</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Contact</a>
+			        <a class="nav-link" href="user_contactus.php">Contact</a>
 			      </li>
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="user_profile.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">

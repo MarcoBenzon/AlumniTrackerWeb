@@ -1,6 +1,10 @@
 <?php
+session_start();
+
 	include("connection.php");
-	include("functions.php");
+	include("user_functions.php");
+
+	$admin_data = check_login($con);
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +59,7 @@
 			      <li class="nav-item">
 			        <a class="nav-link" href="home.php">Home</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Alumni</a>
-			      </li>
+			     
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          News
@@ -74,7 +76,7 @@
 			        <a class="nav-link" href="user_aboutus.php">About</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Contact</a>
+			        <a class="nav-link" href="user_contactus.php">Contact</a>
 			      </li>
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -133,7 +135,7 @@
 			    </table>
 			    </form>
 
-				<?php include 'db_connect.php'; include 'user_jobmodal.php';
+				<?php include 'db_connect.php';
 				
 				if (isset($_POST['filter'])){ // functions for filtering job category.
 					if($_POST['category'] == 'Accountancy') {
@@ -244,37 +246,37 @@
 				<div class="modal-body">
 					<form>
 						<div class="form-group">
-							<p><b>Job Title:</b> <?php echo $row['JobTitle'];?></p>
+							<p>Job Title:</b> <?php echo $row['JobTitle'];?></p>
 						</div>
 						<div class="form-group">
 							<img style="width: 200px; height: auto; justify-content: center;" src="<?php echo $row['FileImage'];?>">
 						</div>
 						<div class="form-group">
-							<p><b>Company:</b> <?php echo $row['CompanyName'];?></p>
+							<p>Company: <?php echo $row['CompanyName'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Cmpany Email:</b> <?php echo $row['CompanyEmail'];?></p>
+							<p>Email: <?php echo $row['CompanyEmail'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Location:</b> <?php echo $row['CompanyAddress'];?></p>
+							<p>Location: <?php echo $row['CompanyAddress'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Salary:</b> <?php echo $row['Salary'];?></p>
+							<p>Salary: <?php echo $row['Salary'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Job Description:</b> <?php echo $row['JobDescription'];?></p>
+							<p>Description: <?php echo $row['JobDescription'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Category:</b> <?php echo $row['Category'];?></p>
+							<p>Category: <?php echo $row['Category'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Status:</b> <?php echo $row['Status'];?></p>
+							<p>Status: <?php echo $row['Status'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Posted By:</b> <?php echo $row['PostedBy'];?></p>
+							<p>Posted By: <?php echo $row['PostedBy'];?></p>
 						</div>
 						<div class="form-group">
-							<p><b>Date Posted:</b> <?php echo $row['DatePosted'];?></p>
+							<p>Date Posted: <?php echo $row['DatePosted'];?></p>
 						</div>
 						
 					</form>
@@ -305,7 +307,7 @@
 			
 				<!--MODAL BODY-->
 				<div class="modal-body">
-					<form method="post" enctype="multipart/form-data">
+					<form method="post" action="user_jobmodal.php" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="job_title">Job Title <span>*</span></label>
 							<input type="text" name="job_title" class="form-control" required>
@@ -315,19 +317,19 @@
 							<input type="text" name="company_name" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="company_email">Company Email <span>*</span></label>
+							<label for="company_email">Email <span>*</span></label>
 							<input type="email" name="company_email" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="company_address">Company Address <span>*</span></label>
+							<label for="company_address">Address <span>*</span></label>
 							<input type="text" name="company_address" class="form-control" required>
 						</div>
 						<div class="form-group">
 							<label for="salary">Salary <span>*</span></label>
-							<input type="text" name="salary" class="form-control" required placeholder="ex. $1000 per month">
+							<input type="text" name="salary" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="job_desc">Job Description <span>*</span></label>
+							<label for="job_desc">Description <span>*</span></label>
 							<textarea name="job_desc" class="form-control" required></textarea>
 						</div>
 						<div class="form-group">
@@ -356,14 +358,15 @@
 							<label>Status <span>*</span></label><br>
 							<select name="status" class="form-control" required>
 								<option value="" disabled selected>-- select status --</option>
-								<option value="Now Open">Now Open</option>
-								<option value="Soon">Soon</option>
+								<option value="Hiring">Hiring</option>
+								
 								<option value="Closed">Closed</option>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="posted_by">Posted By <span>*</span></label>
-							<input type="text" name="posted_by" class="form-control" required placeholder="Firstname Lastname">
+							<label for="posted_by">Posted By</label>
+							<input type="text" name="posted_by" class="form-control" readonly value="<?php echo $admin_data['firstname']. " ".$admin_data['lastname']; ?>"><!-- palitan na lang ng firstname and lastname yang username jan. -->
+
 						</div>
 						<div class="form-group">
 							<label for="image">Upload Photo</label>
@@ -385,6 +388,7 @@
 			</div>
 		</div>
 	</div>
+
 
 <!-- Scripts -->
 

@@ -1,8 +1,11 @@
-<?php
-	include("connection.php");
-	include("functions.php");
+<?php 
+session_start();
 
-	session_start();
+	include("connection.php");
+	include("user_functions.php");
+
+	$admin_data = check_login($con);
+
 ?>
 
 <!DOCTYPE html>
@@ -14,32 +17,23 @@
 	<link rel="shortcut icon" href="images/alumni_logo.png">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" href="css/style_user.css">
-	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-	<script type="text/javascript" src="bootstrap/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-
 	<header>
 		<div class="container">
 			<nav class="navbar navbar-expand-lg navbar-light">
-			  <a class="navbar-brand" href="#"><img src="images/alumni_logo.png" style="width: 300px; height: 70px;"></a>
+			  <a class="navbar-brand" href="home.php"><img src="images/alumnilogo2.png" style="width: 200px; height: auto; padding: 0; margin-left: 50px; "></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
 
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav ml-lg-auto">
-			      <li class="nav-item">
+			      <li class="nav-item active">
 			        <a class="nav-link" href="home.php">Home</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Alumni</a>
-			      </li>
-			      <li class="nav-item dropdown active">
+			      
+			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          News
 			        </a>
@@ -52,14 +46,15 @@
 			        <a class="nav-link" href="user_job.php">Jobs</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">About</a>
+			        <a class="nav-link" href="user_aboutus.php">About</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="user_contactus.php">Contact</a>
 			      </li>
 			      <li class="nav-item dropdown">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          Profile
+			        <a class="nav-link dropdown-toggle" href="user_profile.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+			        	Profile
+			          <!-- <i class="fa fa-user"></i> -->
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			        	<a class="dropdown-item" href="user_profile.php">Profile</a>
@@ -74,50 +69,43 @@
 			</nav>
 		</div>
 	</header>
-	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br>
 	<center>
-	<div class="col-md-3"></div>
-	<div class="col-md-6 well">
-		<h3 class="text-primary">Contact Us</h3>
-		<hr style="border-top:1px dotted #ccc;"/>
-		<div class="col-md-3"></div>
-		<div class="col-md-6">
-			<form method="POST" action="send_email.php">
-				<div class="form-group">
-					<label>Email:</label>
-					<input type="email" class="form-control" name="email" required="required"/>
-				</div>
-				<div class="form-group">
-					<label>Subject</label>
-					<input type="text" class="form-control" name="subject" required="required"/>
-				</div>
-				<div class="form-group">
-					<label>Message</label>
-					<input type="text" class="form-control" name="message" required="required"/>
-				</div>
-				<center><button name="send" class="btn btn-primary"><span class="glyphicon glyphicon-envelope"></span> Send</button></center>
-			</form>
-			<br />
-			<?php
-				if(ISSET($_SESSION['status'])){
-					if($_SESSION['status'] == "ok"){
-			?>
-						<div class="alert alert-info"><?php echo $_SESSION['result']?></div>
-			<?php
-					}else{
-			?>
-						<div class="alert alert-danger"><?php echo $_SESSION['result']?></div>
-			<?php
-					}
+	<div class="content">
+		<?php
+		$view_query=mysqli_query($con,"SELECT * FROM tbl_editpages");
+			while ($row=mysqli_fetch_assoc($view_query)) {
+		?>
+		<content class="form">
+				<form class="about_form" style="background-color: #fff;">
 					
-					unset($_SESSION['result']);
-					unset($_SESSION['status']);
-				}
-			?>
-		</div>
+				<h2>Contact Us</h2>
+				<fieldset><br>
+					<table>
+						<tr>
+							<td><p>Address:</p></td>
+							<td><p id="fetch"><?php echo $row['ConUsAddress'];?></p></td>
+						</tr>
+						<tr>
+							<td><p>Contact Number:</p></td>
+							<td><p id="fetch"><?php echo $row['ConUsNumber'];?></p></td>
+						</tr>
+						<tr>
+							<td><p>Landline:</p></td>
+							<td><p id="fetch"><?php echo $row['ConUsLandline'];?></p></td>
+						</tr>
+						<tr>
+							<td><p>Email:</p></td>
+							<td><p id="fetch"><?php echo $row['ConUsEmail'];?></p></td>
+						</tr>
+					</table>
+				</fieldset><br>
+				
+			</form>
+		</content>
+		<?php }?>
 	</div>
 	</center>
-	
 
 <!-- Scripts -->
 
@@ -126,3 +114,10 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+
+
+
+
+

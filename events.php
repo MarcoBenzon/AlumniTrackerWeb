@@ -1,6 +1,6 @@
 <?php 
 session_start();
-
+include("timer.php");
 	include("connection.php");
 	include("functions.php");
 
@@ -80,7 +80,7 @@ session_start();
 		<a href="announcements.php"><i class="fas fa-table"></i><span>Announcements</span></a>
 		<a href="events.php" class="active"><i class="fas fa-th"></i><span>Events</span></a>
 		<a href="job.php"><i class="fas fa-circle"></i><span>Job Offers</span></a>
-		<a href="editpages.php"><i class="fas fa-sliders-h"></i><span>Edit Pages</span></a>
+		<a href="company.php"><i class="fas fa-sliders-h"></i><span>Company Page</span></a>
 		<a href="add_admin.php"><i class="fas fa-user-shield"></i><span>Admin</span></a>
 		<a href="admin_profile.php"><i class="fas fa-user-alt"></i><span>Admin Profile</span></a>
 	</div>
@@ -96,9 +96,9 @@ session_start();
 				<fieldset><br>
 				<table>
 					<tr>
-						<th width="250px">Event Title</th>
-						<th width="430px">Event Description</th>
-						<th width="130px">Event Image</th>
+						<th width="250px">Title</th>
+						<th width="430px">Description</th>
+						<th width="130px">Image</th>
 					</tr>
 				</table>
 				<?php
@@ -141,15 +141,15 @@ session_start();
 				<div class="modal-body">
 					<form method="post" enctype="multipart/form-data">
 						<div class="form-group">
-							<label for="event_title">Event Title <span>*</span></label>
+							<label for="event_title">Title <span>*</span></label>
 							<input type="text" name="event_title" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="event_desc">Event Description <span>*</span></label>
+							<label for="event_desc">Description <span>*</span></label>
 							<textarea name="event_desc" class="form-control" required></textarea>
 						</div>
 						<div class="form-group">
-							<label for="image">Event Image</label>
+							<label for="image">Image</label>
 							<!-- <input type="file" name="image" class="form-control"> -->
 
 							<input type="file" name="imageCH" value="" id="file"/>
@@ -193,15 +193,15 @@ session_start();
 							<input type="hidden" name="id" value="<?php echo $row['id'];?>">
 						</div>
 						<div class="form-group">
-							<label for="event_title">Event Title</label>
+							<label for="event_title">Title</label>
 							<input type="text" name="event_title" class="form-control" value="<?php echo $row['EventTitle'];?>">
 						</div>
 						<div class="form-group">
-							<label for="event_desc">Event Description</label>
+							<label for="event_desc">Description</label>
 							<textarea name="event_desc" class="form-control" value="<?php echo $row['EventDescription'];?>"><?php echo $row['EventDescription'];?></textarea>
 						</div>
 						<div class="form-group">
-							<label for="image">Event Image</label>
+							<label for="image">Image</label>
 							<!-- <input type="file" name="image" class="form-control" value="<?php echo $row['FileImage'];?>"> -->
 
 

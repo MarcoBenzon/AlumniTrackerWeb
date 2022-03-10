@@ -32,9 +32,7 @@ session_start();
 			      <li class="nav-item active">
 			        <a class="nav-link" href="home.php">Home</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Alumni</a>
-			      </li>
+			      
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          News
@@ -51,7 +49,7 @@ session_start();
 			        <a class="nav-link" href="user_aboutus.php">About</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Contact</a>
+			        <a class="nav-link" href="user_contactus.php">Contact</a>
 			      </li>
 			      <li class="nav-item dropdown">
 			        <a class="nav-link dropdown-toggle" href="user_profile.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -110,37 +108,20 @@ session_start();
 					</div> -->
 				<fieldset><br>
 					<table>
+						
 						<tr>
-							<td><p>Heading:</p></td>
-							<td><p id="fetch"><?php echo $row['AboutHeading'];?></p></td>
-						</tr>
-						<tr>
-							<td><p>Content:</p></td>
-							<td><p id="fetch"><?php echo $row['AboutContent'];?></p></td>
+							
+							<td><p id="fetch">Alumni Tracker is an online-based application that helps to enhance the 
+tracking of college graduates. The project primarily aims to replace current 
+tracking procedure of college graduates and providing alumni data to college 
+faculties. It aims at developing a web portal which will be useful for the college to 
+monitor the alumina's and for the alumni to update their current status and get 
+notified about the college activities. </p></td>
 						</tr>
 					</table>
 				</fieldset>
-				<h2>Contact Us</h2>
-				<fieldset><br>
-					<table>
-						<tr>
-							<td><p>Address:</p></td>
-							<td><p id="fetch"><?php echo $row['ConUsAddress'];?></p></td>
-						</tr>
-						<tr>
-							<td><p>Contact Number:</p></td>
-							<td><p id="fetch"><?php echo $row['ConUsNumber'];?></p></td>
-						</tr>
-						<tr>
-							<td><p>Landline:</p></td>
-							<td><p id="fetch"><?php echo $row['ConUsLandline'];?></p></td>
-						</tr>
-						<tr>
-							<td><p>Email:</p></td>
-							<td><p id="fetch"><?php echo $row['ConUsEmail'];?></p></td>
-						</tr>
-					</table>
-				</fieldset><br>
+				
+				
 				
 			</form>
 		</content>
