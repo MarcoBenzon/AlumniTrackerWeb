@@ -3,8 +3,12 @@ session_start();
 
     include("connection.php");
     include("functions.php");
-  include("db_connect.php");
-
+    include("db_connect.php");
+  if (!isset($_COOKIE['admin'])) {
+    echo "<script> location.href='logout.php'; </script>";   
+    }
+  
+    setcookie('admin', 'abc', time()+50);
     $admin_data = check_login($con);
 ?>
 
@@ -79,7 +83,7 @@ session_start();
         <a href="announcements.php"><i class="fas fa-table"></i><span>Announcements</span></a>
         <a href="events.php"><i class="fas fa-th"></i><span>Events</span></a>
         <a href="job.php"><i class="fas fa-circle"></i><span>Job Offers</span></a>
-        <a href="editpages.php"><i class="fas fa-sliders-h"></i><span>Edit Pages</span></a>
+        <a href="company.php"><i class="fas fa-sliders-h"></i><span>Company Page</span></a>
     <a href="add_admin.php"><i class="fas fa-user-shield"></i><span>Admin</span></a>
     <a href="admin_profile.php"><i class="fas fa-user-alt"></i><span>Admin Profile</span></a>
     </div>

@@ -3,7 +3,7 @@ session_start();
 
 	include("connection.php");
 	include("functions.php");
-
+	include("timer.php");
 	$admin_data = check_login($con);
 
 ?>
@@ -77,7 +77,7 @@ session_start();
 		<a href="announcements.php"><i class="fas fa-table"></i><span>Announcements</span></a>
 		<a href="events.php"><i class="fas fa-th"></i><span>Events</span></a>
 		<a href="job.php" class="active"><i class="fas fa-circle"></i><span>Job Offers</span></a>
-		<a href="editpages.php"><i class="fas fa-sliders-h"></i><span>Edit Pages</span></a>
+		<a href="company.php"><i class="fas fa-sliders-h"></i><span>Company Page</span></a>
 		<a href="add_admin.php"><i class="fas fa-user-shield"></i><span>Admin</span></a>
 		<a href="admin_profile.php"><i class="fas fa-user-alt"></i><span>Admin Profile</span></a>
 	</div>
@@ -94,8 +94,8 @@ session_start();
 				<table>
 					<tr>
 						<th width="200px">Job Title</th>
-						<th width="400px">Job Description</th>
-						<th width="130px">Job Image</th>
+						<th width="400px">Description</th>
+						<th width="130px">Image</th>
 						<th width="80px">Status</th>
 					</tr>
 				</table>
@@ -148,11 +148,11 @@ session_start();
 							<input type="text" name="company_name" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="company_email">Company Email <span>*</span></label>
+							<label for="company_email">Email <span>*</span></label>
 							<input type="email" name="company_email" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="company_address">Company Address <span>*</span></label>
+							<label for="company_address">Address <span>*</span></label>
 							<input type="text" name="company_address" class="form-control" required>
 						</div>
 						<div class="form-group">
@@ -160,7 +160,7 @@ session_start();
 							<input type="text" name="salary" class="form-control" required>
 						</div>
 						<div class="form-group">
-							<label for="job_desc">Job Description <span>*</span></label>
+							<label for="job_desc">Description <span>*</span></label>
 							<textarea name="job_desc" class="form-control" required></textarea>
 						</div>
 						<div class="form-group">
@@ -189,8 +189,7 @@ session_start();
 							<label>Status <span>*</span></label><br>
 							<select name="status" class="form-control" required>
 								<option value="" disabled selected>-- select status --</option>
-								<option value="Now Open">Now Open</option>
-								<option value="Soon">Soon</option>
+								<option value="Hiring">Hiring</option>
 								<option value="Closed">Closed</option>
 							</select>
 						</div>
@@ -229,7 +228,7 @@ session_start();
 			<div class="modal-content">
 				<!--MODAL HEADER-->
 				<div class="modal-header">
-					<h3 class="modal-title">Edit Event</h3>
+					<h3 class="modal-title">Edit Job</h3>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
 				<!--MODAL HEADER-->
@@ -249,11 +248,11 @@ session_start();
 							<input type="text" name="company_name" class="form-control" value="<?php echo $row['CompanyName'];?>">
 						</div>
 						<div class="form-group">
-							<label for="company_email">Company Email</label>
+							<label for="company_email">Email</label>
 							<input type="email" name="company_email" class="form-control" value="<?php echo $row['CompanyEmail'];?>">
 						</div>
 						<div class="form-group">
-							<label for="company_address">Company Address</label>
+							<label for="company_address">Address</label>
 							<input type="text" name="company_address" class="form-control" value="<?php echo $row['CompanyAddress'];?>">
 						</div>
 						<div class="form-group">
@@ -261,7 +260,7 @@ session_start();
 							<input type="text" name="salary" class="form-control" value="<?php echo $row['Salary'];?>">
 						</div>
 						<div class="form-group">
-							<label for="job_desc">Job Description</label>
+							<label for="job_desc">Description</label>
 							<textarea name="job_desc" class="form-control" value="<?php echo $row['JobDescription'];?>"><?php echo $row['JobDescription'];?></textarea>
 						</div>
 						<div class="form-group">
@@ -282,7 +281,7 @@ session_start();
 							<label>Status</label>
 							<select name="status" value="<?php echo $row['Status'];?>" class="form-control">
 								<?php
-									$status=array("Now Open","Soon","Closed");
+									$status=array("Hiring","Soon","Closed");
 									foreach ($status as $stat){
 										if($stat == $row['Status'])
 											echo "<option value='$stat' SELECTED>$stat</option>";
@@ -293,10 +292,12 @@ session_start();
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="image">Event Image</label>
+							<label for="image">Image</label>
 							<input type="file" name="imageCH" value="" id="file"/>
 							<input type="hidden" name="oldimage" id="file" class="form-control" value="<?php echo $row['FileImage'];?>">
 						</div>
+						
+						
 						<div class="form-group">
 							<input type="submit" name="update" value="Update" class="btn btn-primary form-control">
 						</div>

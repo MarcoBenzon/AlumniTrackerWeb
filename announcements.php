@@ -3,11 +3,27 @@ session_start();
 
 	include("connection.php");
 	include("functions.php");
-
+	include("timer.php");
 	$admin_data = check_login($con);
 
 ?>
+<?php
 
+/*function setComments($openconnection) {*/
+	if (isset($_POST['commentSubmit'])) {
+		$uid = $_POST['uid'];
+		$date = $_POST['date'];
+		$message = $_POST['message'];
+		$post_id = $_POST['post_id'];
+		$sql = "INSERT INTO tbl_comments (comment_name, date, comments, post_id) 
+		VALUES ('$uid', '$date', '$message', '$post_id')";
+		/*$sql1 = "SELECT * FROM tbl_comments WHERE post_id = '$post_id'";*/
+		$result = $openconnection->query($sql);
+	}
+	
+/*}
+*/
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +37,25 @@ session_start();
 	<script type="text/javascript" src="bootstrap/jquery.min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 </head>
+<style type="text/css">
+.container-comment {
+  width: 200px;
+  margin-bottom: 10px;
+  white-space: nowrap; /** force the elements to stay side by side **/
+}
+
+.img-comment {
+  border-radius: 50%;
+  vertical-align: middle
+}
+
+.text-container-comment {
+  display: inline-block;
+  margin-top: 15px;
+  margin-left: 20px;
+  vertical-align: middle
+}
+</style>
 <body>
 	<?php include 'db_connect.php'; include 'announce_modals.php';
 	if (isset($_POST['update'])){
@@ -80,7 +115,7 @@ session_start();
 		<a href="announcements.php" class="active"><i class="fas fa-table"></i><span>Announcements</span></a>
 		<a href="events.php"><i class="fas fa-th"></i><span>Events</span></a>
 		<a href="job.php"><i class="fas fa-circle"></i><span>Job Offers</span></a>
-		<a href="editpages.php"><i class="fas fa-sliders-h"></i><span>Edit Pages</span></a>
+		<a href="company.php"><i class="fas fa-sliders-h"></i><span>Company Page</span></a>
 		<a href="add_admin.php"><i class="fas fa-user-shield"></i><span>Admin</span></a>
 		<a href="admin_profile.php"><i class="fas fa-user-alt"></i><span>Admin Profile</span></a>
 	</div>
@@ -93,42 +128,96 @@ session_start();
 				<h2>Announcements
 					<button type="button" class="btn btn-success" data-toggle="modal" data-target="#send_announce_modal">Create</button>
 				</h2>
-				<fieldset><br>
-				<table>
-					<tr>
-						<th width="200px">Sender</th>
-						<th width="280px">Subject</th>
-						<th width="140px">Image</th>
-						<th width="150px">Date Sent</th>
 
-						<!-- <th width="260px">Sender</th>
-						<th width="360px">Subject</th>
-						<th width="150px">Date Sent</th> -->
-					</tr>
-				</table>
-				<?php
-				$view_query=mysqli_query($openconnection,"SELECT * FROM announcements ORDER BY DateSent DESC");
-					while ($row=mysqli_fetch_assoc($view_query)) {
+
+				<fieldset><br>
+					<?php
+				$view_query = mysqli_query($openconnection, "SELECT * FROM announcements ORDER BY DateSent DESC");
+				while ($row = mysqli_fetch_assoc($view_query)) {
+					$post_id = $row['id'];
 				?>
-				<hr>
-				<table>
-					<tr class="announce">
-						<td width="200px"><?php echo $row['Sender'];?></td>
-						<td width="280px"><?php echo $row['Subject'];?></td>
-						<td width="140px"><img style="width: 100px; height: 100px;" src="<?php echo $row['FileImage']; ?>"></td>
-						<td width="150px"><?php echo $row['DateSent'];?></td>
-						<td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#view<?php echo $row['id']; ?>">View</button></td>
-						<td><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#edit<?php echo $row['id'];?>">Edit</button></td>
-						<td>
-							<a href="announce_modals.php?delete=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are You Sure To Delete This Item?')">Delete</a>
-						</td>
-					</tr>
-				</table>
-				<?php }?>
+				<div class="space user-profile mt-4" style="padding: 20px; border-radius: 15px;  box-shadow: 0px 5px 10px 2px #888888">
+					<h2 hidden><?php echo $post_id;?></h2>
+				 <h4 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"><?php echo $row['Subject'];?></h4>
+				 <small><?php echo $row['DateSent'];?></small> / 
+				  &nbsp;<small><strong><?php echo $row['Sender'];?></strong></small><br><br>
+				<h5 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;"><?php echo nl2br($row['Content']);?></h5>
+				 <img style="width: 100%; height: auto; margin-top: 15px;" src="<?php echo $row['FileImage']?>">
+				 
+								    <a href="announce_modals.php?delete=<?php echo $row['id']; ?>" onclick="return confirm('Are You Sure To Delete This Item?')">
+								    	<button class="btn mt-2 btn-danger btn-sm" style="float: right; color: white;">Delete
+								    	<i class="far fa-trash-alt"></i></button></a>
+
+
+
+								    	    <button class="btn btn-info btn-sm mt-2" data-toggle="modal" data-target="#edit<?php echo $row['id'];?>" style="float: right; margin-right: 5px; color: white;">Edit
+								    	<i class="far fa-edit"></i></button>
+
+
+				  <div class="form-group">
+				  	<BR>
+				  	<br><hr>
+								    <label><strong style="color: #26314a;">Add Comment/Questions</strong></label>
+								    <?php 
+								    echo "<form method='POST'>
+								    <input type='hidden' name='post_id' value='$post_id'>
+								    <input type='hidden' name='uid' value='".$admin_data['firstname']." ".$admin_data['lastname']."'>
+								    <input type='hidden' name='date' value='".date('Y-m-d H:i:s')."'>
+								    <textarea name='message' class='form-control'  rows='3' placeholder='Add your comment here' style='resize: none;''></textarea>
+								    
+
+								    <button type= 'submit' name = 'commentSubmit' class='btn mt-2' style='float: right; background-color: #244b48; color: white;'>Post Comment 
+								    	<i class='fa fa-paper-plane' aria-hidden='true'></i></button>
+								    	</form>";
+								    	?>
+
+								  </div><br><hr>
+
+								 <h4>Comments</h4>
+								 <?php
+
+                                      $sql=mysqli_query($openconnection,"SELECT * FROM tbl_comments WHERE post_id='$post_id'");
+                                      while($row=mysqli_fetch_assoc($sql))
+                                      {          
+                                      $date = $row['date'];
+                                      $comment_name = $row['comment_name'];
+                                      $message = $row['comments'];
+                                   ?>
+								  
+								  			  <h2 hidden><?php echo $date; ?></h2>
+											  <div class="container-comment">
+											   <img class="img-comment" style="width: 20%; height: auto; margin-top: 15px;" src="<?php echo $row['FileImage']?>">
+											  <div class="text-container-comment"><strong><?php echo $row['comment_name']?></strong> / <small><?php echo $row['date']?></small></div><br>
+											  <h2><?php echo $message; ?></h2>
+											</div>
+
+								  <?php }?>
+								  </div>
+
+
+				</div>
+				
+
+
+
+				</div>
+
+
+
+				<?php } ?>
+					
 				</fieldset>
+
+
 			</div>
 		</content>
 	</div>
+
+
+
+
+
+
 	<!-- Content Area End -->
 
 	<footer>
@@ -230,6 +319,24 @@ session_start();
 						<div class="form-group">
 							<label for="date_sent">Date Sent</label>
 							<input type="text" name="date_sent" class="form-control" value="<?php echo $row['DateSent'];?>" readonly>
+						</div>
+						<hr>
+						<div class="form-group">
+							<label for="date_sent">Comments</label>
+							  <div class="form-group" style="border: 1px solid #989090; padding: 5px;">
+											  <div class="container-comment">
+											  <div class="text-container-comment"><strong>Marco Benzon</strong> / <small>5:30 PM</small></div>
+											</div>
+
+  										
+
+											<h6 style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px;">
+												Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+											</h6>
+											  <button class="btn mt-2 btn-danger" style="float: right; color: white;">Delete 
+								    	<i class="fas fa-trash-alt"></i></button>
+
+								  </div>
 						</div>
 					</form>
 				</div>

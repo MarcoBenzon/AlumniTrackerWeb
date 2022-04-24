@@ -9,10 +9,12 @@
 		//something was posted
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$salt = "codeflix";
+		$password_encrypted = md5($password);
 
 		//save to database
 			$admin_id = random_num(20);
-			$query = "insert into admin (admin_id,username,password) values ('$admin_id','$username','$password')";
+			$query = "insert into admin (admin_id,username,password) values ('$admin_id','$username','$password_encrypted')";
 
 			mysqli_query($con, $query);
 			echo "<script>alert('Account has been successfully registered.');";

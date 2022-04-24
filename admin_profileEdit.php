@@ -54,29 +54,15 @@ session_start();
 		$fname=$_POST['fname'];
 		$mname=$_POST['mname'];
 		$lname=$_POST['lname'];
-		$bdate=$_POST['bdate'];
-		$bplace=$_POST['bplace'];
-		$gender=$_POST['gender'];
-		$home_address=$_POST['home_address'];
-		$current_address=$_POST['current_address'];
-		$civil_status=$_POST['civil_status'];
-		$mobile=$_POST['mobile'];
-		$email=$_POST['email'];
+		
 
 		$query ="UPDATE admin SET admin_id = '$admin_id',
 		username = '$username',
 		password = '$password',
 		firstname='$fname',
 		middlename='$mname',
-		lastname='$lname',
-		birthdate='$bdate',
-		birthplace='$bplace',
-		gender='$gender',
-		home_address='$home_address', 
-		current_address='$current_address', 
-		civil_status='$civil_status', 
-		mobile_number='$mobile', 
-		email='$email'
+		lastname='$lname'
+		
 		
 		WHERE id='$id'";
 
@@ -178,34 +164,7 @@ session_start();
 											
 										</div>
 
-										<div class="form-group">
-											<label for="home_address">Home Address :</label>
-											
-										</div>
-										<div class="form-group">
-											<label for="current_address">Current Address :</label>
-											
-										</div>
-
-										<div class="form-group">
-											<label for="bdate">Birthdate :</label>
-										</div>
-
-										<div class="form-group">
-											<label for="bplace">Birthplace :</label>
-										</div>
-
-										<div class="form-group">
-											<label for="gender">Gender :</label>
-										</div>
-
-										<div class="form-group">
-											<label>Civil Status :</label>
-										</div>
-
-										<div class="form-group">
-											<label for="mobile">Mobile Number :</label>
-										</div>
+										
 						</div>
 
 							<div class="col-sm-5">
@@ -248,62 +207,12 @@ session_start();
 											<input type="text" name="username" class="form-control" readonly value="<?php echo $row['username'];?>">
 										</div>
 										
-										<div class="form-group">
-											<input type="email" name="email" class="form-control" value="<?php echo $row['email'];?>">
-										</div>
-										
+									
 										<div class="form-group">
 											<input type="text" name="password" class="form-control" value="<?php echo $row['password'];?>">
 										</div>
 										
-										<div class="form-group">	
-											<input type="text" name="home_address" class="form-control" value="<?php echo $row['home_address'];?>">
-										</div>
 										
-										<div class="form-group">
-											<input type="text" name="current_address" class="form-control" value="<?php echo $row['current_address'];?>">
-										</div>
-
-										<div class="form-group">
-											<input type="date" name="bdate" class="form-control" value="<?php echo $row['birthdate'];?>">
-										</div>
-
-										<div class="form-group">
-											<input type="text" name="bplace" class="form-control" value="<?php echo $row['birthplace'];?>">
-										</div>
-
-										<div class="form-group">
-											<select name="gender" value="<?php echo $row['gender'];?>" class="form-control">
-										<?php
-											$gender=array("Male","Female");
-											foreach ($gender as $g){
-												if($g == $row['gender'])
-													echo "<option value='$g' SELECTED>$g</option>";
-												else
-													echo "<option value='$g'>$g</option>";
-										}
-										?>
-									</select>
-										</div>
-
-										<div class="form-group">
-											<select name="civil_status" value="<?php echo $row['civil_status'];?>" class="form-control">
-												<?php
-													$civstat=array("Single","Married","Divorced","Widdowed");
-													foreach ($civstat as $cs){
-														if($cs == $row['civil_status'])
-															echo "<option value='$cs' SELECTED>$cs</option>";
-														else
-															echo "<option value='$cs'>$cs</option>";
-												}
-												?>
-											</select>
-										</div>
-
-										<div class="form-group">
-											<input type="number" name="mobile" class="form-control" value="<?php echo $row['mobile_number'];?>">
-										</div>
-
 										<div class="form-group">
 											<input type="submit" name="update" value="Save Changes" class="btn btn-primary form-control">
 										</div>

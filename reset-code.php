@@ -1,4 +1,4 @@
-<?php require_once "controllerUserData.php"; ?>
+<?php require_once "controllerAdminData.php"; ?>
 <?php 
 $email = $_SESSION['email'];
 if($email == false){
@@ -11,7 +11,7 @@ if($email == false){
     <meta charset="UTF-8">
     <title>Code Verification</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="css/user-otp.css"> -->
+    <link rel="stylesheet" href="css/login.css"> 
 </head>
 <body>
     <div class="container">

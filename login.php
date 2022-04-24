@@ -12,12 +12,26 @@
 		//something was posted
 		$username = $_POST['username'];
 		$password = $_POST['password'];
+		$password = md5($password);
+	
+		
+		  
+		$secret = '6LdubaAeAAAAAEpgqRFOJNMIJMk10o4Vyoeyb236';
+		$verifyResponse = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $_POST['g-recaptcha-response']);
+		$responseData = json_decode($verifyResponse);
 
+		//attempt to login
+		$max_time_in_seconds = 10;
+		$attempt = 0;
+		$disable = '';
+		if(isset($_SESSION['attempt']) && $_SESSION['attempt'] >= 3){
+			$disable = 'disabled';
+		}
 		//read from database
 			$query = "select * from admin where username = '$username' limit 1";
 			$result = mysqli_query($con, $query);
-
-			if($result)
+			if ($responseData->success) {
+				if($result )
 			{
 				if($result && mysqli_num_rows($result) > 0)
 				{
@@ -28,17 +42,39 @@
 					{
 
 						$_SESSION['admin_id'] = $admin_data['admin_id'];
+						setcookie('admin', 'abc', time()+50); 	
 						header("Location: index.php");
 						die;
 					}
 					else{
-						echo "<script>alert('Username and Password mismatched!');</script>";
+						$attempt++;
+						if($attempt > 3){
+							echo "<script>alert('You have exceeded the maximum number of login attempts.');</script>";
+							
+						}
+						else{
+							echo "<script>alert('Invalid username or password.');</script>";
+							
+						}
 					}
+				//echo "<script>alert('Username and Password mismatched!');</script>";
+					
 				}
 				else{
-					echo "<script>alert('Username cannot be found!');</script>";
+					$attempt++;
+						if($attempt > 3){
+							echo "<script>alert('You have exceeded the maximum number of login attempts.');</script>";
+							
+						}
+						else{
+							echo "<script>alert('Invalid username or password.');</script>";
+							
+						}
+					//echo "<script>alert('Username cannot be found!');</script>";
 				}
 			}
+			}
+			
 	}
 ?>
 
@@ -50,6 +86,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="images/alumni_logo.png">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body class="login">
 	<div class="center">
@@ -65,8 +102,10 @@
 				<span></span>
 				<label>Password</label>
 			</div>
+			<div class="g-recaptcha" data-sitekey="6LdubaAeAAAAALJ_frZlXf3qwOyf5C6XmP6xh1g5"></div>
+			<br>
 			<div class="pass"><a href="admin_forgot-password.php" style="text-decoration: none; color: #032708;">Forgot Password?</a></div>
-			<input id="login" type="submit" name="submit" value="LOG IN"><br>
+			<input id="login" type="submit" name="submit" value="LOG IN" ><br>
 			<center><br><a href="signup.php" class="pass" style="text-decoration: none; color: #032708;">Don't have an account?</a></center>
 		</form>
 	</div>
